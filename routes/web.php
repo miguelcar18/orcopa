@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', ['as' => 'principal', 'uses' => 'BackController@index']);
+//Route::resource('usuarios', 'UserController');
+Auth::routes();
+Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
+//Route::get('restaurar-contrasena', ['as' => 'change_password', 'uses' =>'LoginController@changePassword']);
+//Route::post('profile/change-password', ['as' => 'postChangePassword', 'uses' => 'LoginController@postChangePassword']);
+Route::get('/home', 'HomeController@index')->name('home');
