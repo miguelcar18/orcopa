@@ -156,20 +156,22 @@ $('.tooltip-error').click(function (e) {
     var id = $(this).data('id');
     var form = $('#form-delete');
     var action = form.attr('action').replace('USER_ID', id);
-    var rowss =  $(this).parents('tr');
+    var rowss =  $(this).parents('tr').index();
+    var count = parseInt(rowss) + 1;
+    var rev = $(this).parents('tr').siblings('tr').length;
     if(confirm(message)) {
         $.post(action, form.serialize(), function(result) {
             if (result.success) {
-                rowss.fadeOut(1000);
-                //tablaData.row(rowss).remove().draw();
+                if(rev > 0){
+                    tablaData.fnDeleteRow(count);
+                }
+                else if(rev == 0){
+                    tablaData.fnDeleteRow(0);
+                }
                 toastr["success"](result.msg);
             } 
             else if (result.error) {
                 toastr["error"](result.msg);
-                rowss.show();               
-            } 
-            else{
-                rowss.show();
             }
         }, 'json');
     }
