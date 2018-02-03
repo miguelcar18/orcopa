@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         @section('titulo')
-        <title>FreshUI - Premium Web App and Admin Template</title>
+        <title>Panel de inicio - Orcopa</title>
         @show
         <meta name="description" content="FreshUI is a Premium Web App and Admin Template created by pixelcave and published on Themeforest.">
         <meta name="author" content="pixelcave">
@@ -38,6 +38,9 @@
 
         <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
         <link rel="stylesheet" href="{{ asset('css/themes/river.css') }}">
+
+        <!-- Notification css (Toastr) -->
+        <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- END Stylesheets -->
 
         <!-- Modernizr (Browser feature detection library) & Respond.js (Enable responsive CSS code on browsers that don't support it, eg IE8) -->
@@ -76,7 +79,7 @@
             -->
             <div id="fx-container" class="fx-opacity">
                 <!-- Page content -->
-                <div id="page-content" class="block">
+                <div id="page-content" class="block full">
                     @section('contenido')
                     @include('layouts.breadcrumb')
                     {{--
@@ -104,6 +107,8 @@
         <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/plugins.js') }}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
+        <script src="{{ asset('js/toastr.min.js') }}"></script>
+        <script src="{{ asset('js/custom.js') }}"></script>
         @section('javascripts')
         @show
     </body>

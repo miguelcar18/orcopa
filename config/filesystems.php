@@ -53,6 +53,11 @@ return [
             'root' => base_path('uploads/usuarios'),
         ],
 
+        'tutores' => [
+            'driver' => 'local',
+            'root' => base_path('uploads/tutores'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
