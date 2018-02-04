@@ -281,6 +281,8 @@ $('form#pasanteForm').validate({
                     toastr["success"](alertMessage);
                     if($("button#pasanteSubmit").attr('data') == 1) {
                         $('form#pasanteForm').reset();
+                        $("select#empresa").chosen("destroy");
+                        $("select#tutor").chosen("destroy");
                         $('.form-group').removeClass('has-success has-error');
                     }
                 }             

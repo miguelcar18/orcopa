@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Empresa;
+use App\Pasante;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmpresasRequest;
 use Session;
@@ -73,7 +74,8 @@ class EmpresasController extends Controller
      */
     public function show(Empresa $empresa)
     {
-        return view('empresas.show', ['empresa' => $empresa]);
+        $pasantes = Pasante::where('empresa', $empresa->id)->get();
+        return view('empresas.show', ['empresa' => $empresa, 'pasantes' => $pasantes]);
     }
 
     /**
