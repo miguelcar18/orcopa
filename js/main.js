@@ -71,7 +71,11 @@ var webApp = function() {
         $('.select-chosen').chosen();
 
         // Initialize Datepicker
-        $('.input-datepicker').datepicker();
+        $('.input-datepicker').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: "dd/mm/yyyy"
+        });
 
         /* Easy Pie Chart */
         $('.pie-chart').easyPieChart({

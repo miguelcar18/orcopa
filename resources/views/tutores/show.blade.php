@@ -29,10 +29,12 @@
                 <th>Cargo</th>
                 <td>{{ $tutor->cargo }}</td>
             </tr>
+            @if($tutor->curriculum != "")
             <tr>
                 <th>Curriculum</th>
                 <td><a href="{{ asset('uploads/tutores/'.$tutor->curriculum) }}" target="_blank">Descargar currículum</a></td>
             </tr>
+            @endif
             {{--
             <tr>
 				<td class="col-md-3 col-sm-4"><b>Acciones</b></td>

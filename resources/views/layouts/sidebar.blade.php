@@ -30,6 +30,17 @@
                         </li>
                     </ul>
                 </li>
+                <li @if(Route::getCurrentRoute()->getName() == 'pasantes.index' or  Route::getCurrentRoute()->getName() == 'pasantes.show' or Route::getCurrentRoute()->getName() == 'pasantes.edit' or Route::getCurrentRoute()->getName() == 'pasantes.create')) class="active" @endif >
+                    <a href="#" class="menu-link"><i class="glyphicon-address_book"></i>Pasantes</a>
+                    <ul>
+                        <li>
+                            <a href="{{ URL::route('pasantes.index') }}" @if(Route::getCurrentRoute()->getName() == 'pasantes.index' or  Route::getCurrentRoute()->getName() == 'pasantes.show' or Route::getCurrentRoute()->getName() == 'pasantes.edit')) class="active" @endif >Mostrar listado</a>
+                        </li>
+                        <li>
+                            <a href="{{ URL::route('pasantes.create') }}" @if(Route::getCurrentRoute()->getName() == 'pasantes.create')) class="active" @endif >Registrar</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
             <!-- END Sidebar Navigation -->
         </div>
