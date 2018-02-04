@@ -203,7 +203,7 @@ $('form#pasanteForm').validate({
             required: true, 
             number:true
         },
-        ubicacion: {
+        empresa: {
             required: true
         }, 
         tutor: {
@@ -230,8 +230,8 @@ $('form#pasanteForm').validate({
             required: 'Ingrese número de cédula', 
             number: 'Ingrese sólo números'
         },
-        ubicacion: {
-            required: 'Ingrese ubicación de la empresa'
+        empresa: {
+            required: 'Seleccione empresa'
         }, 
         tutor: {
             required: 'Seleccione tutor'
@@ -285,6 +285,109 @@ $('form#pasanteForm').validate({
                     }
                 }             
                 $("button#pasanteSubmit").removeClass('disabled');
+                $("button#cancelar").removeClass('disabled');
+            }
+        })
+        return false;
+    }
+});
+
+$('form#empresaForm').validate({
+    errorClass: 'help-block', 
+    errorElement: 'div',
+    errorPlacement: function(error, e) {
+        e.parents('.form-group > div').append(error);
+    },
+    highlight: function(e) {
+        $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+        $(e).closest('.help-block').remove();
+    },
+    success: function(e) {
+        // You can remove the .addClass('has-success') part if you don't want the inputs to get green after success!
+        e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
+        e.closest('.help-block').remove();
+    },
+    rules: {
+        nombre: {
+            required: true
+        },
+        direccion: {
+            required: true
+        },
+        correo: {
+            required: true, 
+            email:true
+        },
+        telefono: {
+            required: true
+        }, 
+        contacto: {
+            required: true
+        },
+        descripcion: {
+            required: true
+        }
+    },
+    messages: {
+        nombre: {
+            required: 'Ingrese nombre'
+        },
+        direccion: {
+            required: 'Ingrese dirección'
+        },
+        correo: {
+            required: 'Ingrese número de cédula', 
+            email: 'Ingrese un correo válido'
+        },
+        telefono: {
+            required: 'Ingrese teléfono'
+        }, 
+        contacto: {
+            required: 'Ingrese nombre de persona de contacto'
+        },
+        descripcion: {
+            required: 'Ingrese breve descripción de la empresa'
+        }
+    },
+    submitHandler: function () {
+        var token = $("input[name=_token]").val();
+        var formData = new FormData($("form#empresaForm")[0]);
+        $.ajax({
+            url:  $("form#empresaForm").attr('action'),
+            type: $("form#empresaForm").attr('method'),
+            headers: {'X-CSRF-TOKEN' : token},
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend:function(){
+                $("button#empresaSubmit").addClass('disabled');
+                $("button#cancelar").addClass('disabled');
+            },
+            success:function(response){
+                var accion = '';
+                var alertMessage = '';
+                var count = 0;
+
+                if(response.validations == false){
+                    $.each(response.errors, function(index, value){
+                        count++;
+                        alertMessage+= count+". "+value+"<br>";
+                    });
+                    toastr["warning"](alertMessage);
+                }
+                else if(response.validations == true){
+                    if($("button#empresaSubmit").attr('data') == 1)
+                        accion = 'registrada';
+                    else if($("button#empresaSubmit").attr('data') == 0)
+                        accion = 'actualizada';
+                    var alertMessage = 'Empresa '+accion+' satisfactoriamente';
+                    toastr["success"](alertMessage);
+                    if($("button#empresaSubmit").attr('data') == 1) {
+                        $('form#empresaForm').reset();
+                        $('.form-group').removeClass('has-success has-error');
+                    }
+                }             
+                $("button#empresaSubmit").removeClass('disabled');
                 $("button#cancelar").removeClass('disabled');
             }
         })

@@ -18,13 +18,14 @@ class CreatePasantesTable extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->integer('cedula')->unique();
-            $table->text('ubicacion');
             $table->date('inicio');
             $table->date('culminacion');
             $table->string('especialidad');
             $table->string('modulo')->nullable();
             $table->integer('tutor')->unsigned();
             $table->foreign('tutor')->references('id')->on('tutores')->onDelete('cascade');
+            $table->integer('empresa')->unsigned();
+            $table->foreign('empresa')->references('id')->on('empresas')->onDelete('cascade');
             $table->timestamps();
         });
     }

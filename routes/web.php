@@ -20,4 +20,5 @@ Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('tutores', 'TutoresController');
+Route::resource('empresas', 'EmpresasController');
 Route::resource('pasantes', 'PasantesController');

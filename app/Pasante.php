@@ -19,8 +19,12 @@ class Pasante extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre', 'apellido', 'cedula', 'ubicacion', 'tutor', 'inicio', 'culminacion', 'especialidad', 'modulo'
+        'nombre', 'apellido', 'cedula', 'empresa', 'tutor', 'inicio', 'culminacion', 'especialidad', 'modulo'
     ];
+
+    public function nombreEmpresa(){
+        return $this->hasOne('App\Empresa', 'id', 'empresa');
+    }
 
     public function nombreTutor(){
         return $this->hasOne('App\Tutor', 'id', 'tutor');

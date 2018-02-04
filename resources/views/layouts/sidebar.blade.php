@@ -30,6 +30,17 @@
                         </li>
                     </ul>
                 </li>
+                <li @if(Route::getCurrentRoute()->getName() == 'empresas.index' or  Route::getCurrentRoute()->getName() == 'empresas.show' or Route::getCurrentRoute()->getName() == 'empresas.edit' or Route::getCurrentRoute()->getName() == 'empresas.create')) class="active" @endif >
+                    <a href="#" class="menu-link"><i class="glyphicon-bank"></i>Empresas</a>
+                    <ul>
+                        <li>
+                            <a href="{{ URL::route('empresas.index') }}" @if(Route::getCurrentRoute()->getName() == 'empresas.index' or  Route::getCurrentRoute()->getName() == 'empresas.show' or Route::getCurrentRoute()->getName() == 'empresas.edit')) class="active" @endif >Mostrar listado</a>
+                        </li>
+                        <li>
+                            <a href="{{ URL::route('empresas.create') }}" @if(Route::getCurrentRoute()->getName() == 'empresas.create')) class="active" @endif >Registrar</a>
+                        </li>
+                    </ul>
+                </li>
                 <li @if(Route::getCurrentRoute()->getName() == 'pasantes.index' or  Route::getCurrentRoute()->getName() == 'pasantes.show' or Route::getCurrentRoute()->getName() == 'pasantes.edit' or Route::getCurrentRoute()->getName() == 'pasantes.create')) class="active" @endif >
                     <a href="#" class="menu-link"><i class="glyphicon-address_book"></i>Pasantes</a>
                     <ul>

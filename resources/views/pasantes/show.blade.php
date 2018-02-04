@@ -26,8 +26,8 @@
                 <td>{{ number_format($pasante->cedula, 0, '', '.') }}</td>
             </tr>
             <tr>
-                <th>Ubicación</th>
-                <td>{{ $pasante->ubicacion }}</td>
+                <th>Empresa</th>
+                <td>{{ $pasante->nombreEmpresa->nombre }}</td>
             </tr>
             <tr>
                 <th>Tutor</th>

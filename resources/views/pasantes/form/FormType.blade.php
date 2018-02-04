@@ -17,9 +17,9 @@
 	</div>
 </div>
 <div class="form-group">
-	<label class="col-md-4 control-label" for="ubicacion">Ubicación</label>
+	<label class="col-md-4 control-label" for="ubicacion">Empresa</label>
 	<div class="col-md-4">
-		{!! Form::textarea('ubicacion', null, ['placeholder' => 'Ubicación de la empresa', 'class' => 'form-control', 'id' => 'ubicacion', 'rows' => '3', 'required' => true]) !!}
+		{!! Form::select('empresa', $empresas, null, ['id' => 'empresa', 'class' => 'form-control select-chosen', 'data-placeholder' => 'Seleccione', 'required' => true]) !!}
 	</div>
 </div>
 <div class="form-group">

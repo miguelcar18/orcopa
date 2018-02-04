@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Empresa;
 use App\Pasante;
 use App\Tutor;
 use Illuminate\Http\Request;
@@ -40,7 +41,8 @@ class PasantesController extends Controller
     public function create()
     {
         $tutores = array('' => "Seleccione") + Tutor::orderBy('cedula','ASC')->get()->pluck('cedula_nombre', 'id')->toArray();
-        return view('pasantes.new', compact('tutores'));
+        $empresas = array('' => "Seleccione") + Empresa::orderBy('nombre','ASC')->get()->pluck('nombre', 'id')->toArray();
+        return view('pasantes.new', compact('tutores', 'empresas'));
     }
 
     /**
@@ -68,7 +70,7 @@ class PasantesController extends Controller
                 'nombre'        => $request['nombre'], 
                 'apellido'      => $request['apellido'],
                 'cedula' 		=> $request['cedula'], 
-                'ubicacion' 	=> $request['ubicacion'], 
+                'empresa' 	    => $request['empresa'], 
                 'tutor' 		=> $request['tutor'], 
                 'inicio' 		=> $fechaSqlInicio, 
                 'culminacion' 	=> $fechaSqlCulminacion, 
@@ -103,7 +105,8 @@ class PasantesController extends Controller
     public function edit(Pasante $pasante)
     {
         $tutores = array('' => "Seleccione") + Tutor::orderBy('cedula','ASC')->get()->pluck('cedula_nombre', 'id')->toArray();
-        return view('pasantes.edit', ['pasante' => $pasante, 'tutores' => $tutores]);
+        $empresas = array('' => "Seleccione") + Empresa::orderBy('nombre','ASC')->get()->pluck('nombre', 'id')->toArray();
+        return view('pasantes.edit', ['pasante' => $pasante, 'tutores' => $tutores, 'empresas' => $empresas]);
     }
 
     /**
@@ -133,7 +136,7 @@ class PasantesController extends Controller
                 'nombre'        => $request['nombre'], 
                 'apellido'      => $request['apellido'],
                 'cedula' 		=> $request['cedula'], 
-                'ubicacion' 	=> $request['ubicacion'], 
+                'empresa' 	    => $request['empresa'], 
                 'tutor' 		=> $request['tutor'], 
                 'inicio' 		=> $fechaSqlInicio, 
                 'culminacion' 	=> $fechaSqlCulminacion, 
