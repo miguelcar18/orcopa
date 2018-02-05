@@ -66,7 +66,7 @@ $('.tooltip-error').click(function (e) {
     var form = $('#form-delete');
     var action = form.attr('action').replace('USER_ID', id);
     var rowss =  $(this).parents('tr').index();
-    var count = parseInt(rowss) + 1;
+    var count = parseInt(rowss) + parseInt(1);
     var rev = $(this).parents('tr').siblings('tr').length;
     if(confirm(message)) {
         $.post(action, form.serialize(), function(result) {
@@ -394,5 +394,413 @@ $('form#empresaForm').validate({
             }
         })
         return false;
+    }
+});
+
+$('form#usuarioForm').validate({
+    errorClass: 'help-block', 
+    errorElement: 'div',
+    errorPlacement: function(error, e) {
+        e.parents('.form-group > div').append(error);
+    },
+    highlight: function(e) {
+        $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+        $(e).closest('.help-block').remove();
+    },
+    success: function(e) {
+        // You can remove the .addClass('has-success') part if you don't want the inputs to get green after success!
+        e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
+        e.closest('.help-block').remove();
+    },
+    rules: {
+        name: {
+            required: true
+        },
+        email: {
+            required: true,
+            email: true
+        },
+        username: {
+            required: true
+        },
+        password: {
+            required: true
+        },
+        password_confirmation: {
+            required: true,
+            equalTo: "#password"
+        },
+        rol: {
+            required: true
+        }
+    },
+    messages: {
+        name: {
+            required: 'Ingrese nombre y apellido'
+        },
+        username: {
+            required: 'Ingrese un nombre de usuario'
+        },
+        email: {
+            required: 'Ingrese un email',
+            email: 'Ingrese un email válido'
+        },
+        password: {
+            required: 'Ingrese una contraseña'
+        },
+        password_confirmation: {
+            required: 'Repita la contraseña',
+            equalTo: 'Las contraseñas deben de ser iguales'
+        },
+        rol: {
+            required: 'Seleccione un rol'
+        }
+    },
+    submitHandler: function () {
+        var token = $("input[name=_token]").val();
+        var formData = new FormData($("form#usuarioForm")[0]);
+        $.ajax({
+            url:  $("form#usuarioForm").attr('action'),
+            type: $("form#usuarioForm").attr('method'),
+            headers: {'X-CSRF-TOKEN' : token},
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend:function(){
+                $("button#usuarioSubmit").addClass('disabled');
+                $("button#cancelar").addClass('disabled');
+            },
+            success:function(response){
+                var accion = '';
+                var alertMessage = '';
+                var count = 0;
+
+                if(response.validations == false){
+                    $.each(response.errors, function(index, value){
+                        count++;
+                        alertMessage+= count+". "+value+"<br>";
+                    });
+                    toastr["warning"](alertMessage);
+                }
+                else if(response.validations == true){
+                    if($("button#usuarioSubmit").attr('data') == 1)
+                        accion = 'registrado';
+                    else if($("button#usuarioSubmit").attr('data') == 0)
+                        accion = 'actualizado';
+                    var alertMessage = 'Usuario '+accion+' satisfactoriamente';
+                    toastr["success"](alertMessage);
+                    if($("button#usuarioSubmit").attr('data') == 1) {
+                        $('form#usuarioForm').reset();
+                        $('.form-group').removeClass('has-success has-error');
+                    }
+                }             
+                $("button#usuarioSubmit").removeClass('disabled');
+                $("button#cancelar").removeClass('disabled');
+            }
+        })
+        return false;
+    }
+});
+
+$('form#usuarioEditForm').validate({
+    errorClass: 'help-block', 
+    errorElement: 'div',
+    errorPlacement: function(error, e) {
+        e.parents('.form-group > div').append(error);
+    },
+    highlight: function(e) {
+        $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+        $(e).closest('.help-block').remove();
+    },
+    success: function(e) {
+        // You can remove the .addClass('has-success') part if you don't want the inputs to get green after success!
+        e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
+        e.closest('.help-block').remove();
+    },
+    rules: {
+        name: {
+            required: true
+        },
+        email: {
+            required: true,
+            email: true
+        },
+        username: {
+            required: true
+        },
+        rol: {
+            required: true
+        }
+    },
+    messages: {
+        name: {
+            required: 'Ingrese nombre y apellido'
+        },
+        username: {
+            required: 'Ingrese un nombre de usuario'
+        },
+        email: {
+            required: 'Ingrese un email',
+            email: 'Ingrese un email válido'
+        },
+        rol: {
+            required: 'Seleccione un rol'
+        }
+    },
+    submitHandler: function () {
+        var token = $("input[name=_token]").val();
+        var formData = new FormData($("form#usuarioEditForm")[0]);
+        $.ajax({
+            url:  $("form#usuarioEditForm").attr('action'),
+            type: $("form#usuarioEditForm").attr('method'),
+            headers: {'X-CSRF-TOKEN' : token},
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend:function(){
+                $("button#usuarioEditSubmit").addClass('disabled');
+                $("button#cancelar").addClass('disabled');
+            },
+            success:function(response){
+                var accion = '';
+                var alertMessage = '';
+                var count = 0;
+
+                if(response.validations == false){
+                    $.each(response.errors, function(index, value){
+                        count++;
+                        alertMessage+= count+". "+value+"<br>";
+                    });
+                    toastr["warning"](alertMessage);
+                }
+                else if(response.validations == true){
+                    if($("button#usuarioEditSubmit").attr('data') == 1)
+                        accion = 'registrado';
+                    else if($("button#usuarioEditSubmit").attr('data') == 0)
+                        accion = 'actualizado';
+                    var alertMessage = 'Usuario '+accion+' satisfactoriamente';
+                    toastr["success"](alertMessage);
+                    if($("button#usuarioEditSubmit").attr('data') == 1) {
+                        $('form#usuarioEditForm').reset();
+                        $('.form-group').removeClass('has-success has-error');
+                    }
+                }             
+                $("button#usuarioEditSubmit").removeClass('disabled');
+                $("button#cancelar").removeClass('disabled');
+            }
+        })
+        return false;
+    }
+});
+
+$("form#loginForm").validate({
+    errorClass: 'help-block', 
+    errorElement: 'div',
+    errorPlacement: function(error, e) {
+        e.parents('.form-group > div').append(error);
+    },
+    highlight: function(e) {
+        $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+        $(e).closest('.help-block').remove();
+    },
+    success: function(e) {
+        // You can remove the .addClass('has-success') part if you don't want the inputs to get green after success!
+        e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
+        e.closest('.help-block').remove();
+    },
+    rules: {
+        username: {
+            required: true
+        },
+        password: {
+            required: true,
+            minlength: 6
+        }
+    },
+    messages: {
+        username: {
+            required: "Ingrese nombre de usuario"
+        },
+        password: {
+            required: "Ingrese contraseña",
+            minlength: "Debe ingresar al menos 6 caracteres"
+        }
+    },
+    submitHandler: function () {
+        var token = $("input[name=_token]").val();
+        var formData = new FormData($("form#loginForm")[0]);
+        $.ajax({
+            url:  $("form#loginForm").attr('action'),
+            type: $("form#loginForm").attr('method'),
+            headers: {'X-CSRF-TOKEN' : token},
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend:function(){
+                $("button#loginButton").addClass('disabled');
+            },
+            success:function(response){
+                var alertMessage = 'Usuario o contraseña incorrectos';
+                if(response.message == "error"){
+                    toastr["error"](alertMessage);
+                    $('button#loginButton').removeClass('disabled');
+                } else{
+                    window.location = 'http://'+window.location.host+"/orcopa";
+                }
+            }
+        })
+        return false;
+    }
+});
+
+$('form#emailForm').validate({
+    errorClass: 'help-block', 
+    errorElement: 'div',
+    errorPlacement: function(error, e) {
+        e.parents('.form-group > div').append(error);
+    },
+    highlight: function(e) {
+        $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+        $(e).closest('.help-block').remove();
+    },
+    success: function(e) {
+        // You can remove the .addClass('has-success') part if you don't want the inputs to get green after success!
+        e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
+        e.closest('.help-block').remove();
+    },
+    rules: {
+        email: {
+            required: true,
+            email: true
+        }
+    },
+    messages: {
+        email: {
+            required: 'Ingrese un email',
+            email: 'Ingrese un email válido'
+        }
+    }
+});
+
+$('form#changePasswordForm').validate({
+    errorClass: 'help-block', 
+    errorElement: 'div',
+    errorPlacement: function(error, e) {
+        e.parents('.form-group > div').append(error);
+    },
+    highlight: function(e) {
+        $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+        $(e).closest('.help-block').remove();
+    },
+    success: function(e) {
+        // You can remove the .addClass('has-success') part if you don't want the inputs to get green after success!
+        e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
+        e.closest('.help-block').remove();
+    },
+    rules: {
+        email: {
+            required: true,
+            email: true
+        },
+        password: {
+            required: true
+        },
+        password_confirmation: {
+            required: true,
+            equalTo: "#password"
+        }
+    },
+    messages: {
+        email: {
+            required: 'Ingrese un email',
+            email: 'Ingrese un email válido'
+        },
+        password: {
+            required: 'Ingrese nueva contraseña'
+        },
+        password_confirmation: {
+            required: 'Repita la nueva contraseña',
+            equalTo: 'Las contraseñas deben de ser iguales'
+        }
+    }
+});
+
+$('form#passwordForm').validate({
+    errorClass: 'help-block', 
+    errorElement: 'div',
+    errorPlacement: function(error, e) {
+        e.parents('.form-group > div').append(error);
+    },
+    highlight: function(e) {
+        $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+        $(e).closest('.help-block').remove();
+    },
+    success: function(e) {
+        // You can remove the .addClass('has-success') part if you don't want the inputs to get green after success!
+        e.closest('.form-group').removeClass('has-success has-error').addClass('has-success');
+        e.closest('.help-block').remove();
+    },
+    rules: {
+        password_actual: {
+            required: true
+        },
+        password: {
+            required: true,
+            minlength: 6
+        },
+        password_confirmation: {
+            required: true,
+            equalTo: "#password"
+        }
+    },
+    messages: {
+        password_actual: {
+            required: 'Ingrese su contraseña actual'
+        },
+        password: {
+            required: "Ingrese su nueva contraseña",
+            minlength: jQuery.validator.format("Debe ingresar al menos {0} caracteres")
+        },
+        password_confirmation: {
+            required: 'Repita la nueva contraseña',
+            equalTo: 'Las contraseñas deben de ser iguales'
+        }
+    },
+    submitHandler: function (form) {
+        var token = $("input[name=_token]").val();
+        var formData = new FormData($("form#passwordForm")[0]);
+        $.ajax({
+            url:  $("form#passwordForm").attr('action'),
+            type: $("form#passwordForm").attr('method'),
+            headers: {'X-CSRF-TOKEN' : token},
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend:function(){
+                $("button#passwordSubmit").addClass('disabled');
+                $("button#cancelar").addClass('disabled');
+            },
+            success:function(response){
+                var accion = '';
+                var alertMessage = '';
+                var count = 0;
+
+                if(response.message == "error"){
+                    toastr["error"]('La contraseña acutal ingresada es incorrecta.');
+                }
+                else if(response.message == "correcto"){
+                    action = 'actualizada';
+                    alertMessage = 'Contraseña '+action+' satisfactoriamente';
+                    toastr["success"](alertMessage);
+                    $('form#passwordForm').reset();
+                    $(document).find('.validation-valid-label').remove();
+                }
+                $("button#passwordSubmit").removeClass('disabled');
+                $("button#cancelar").removeClass('disabled');
+            }
+        })
+        return false;
+    },
+    invalidHandler: function (form) {
     }
 });

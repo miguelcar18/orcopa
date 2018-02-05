@@ -42,7 +42,7 @@ class MyResetPassword extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->from("monagasfundaudo@gmail.com", $name = "Inversiones Arriba el Telón C.A")
+        ->from("monagasfundaudo@gmail.com", $name = "ORCOPA")
         ->subject('Recuperar contraseña')
         ->greeting('Hola')
         ->line('Estás recibiendo este correo porque hiciste una solicitud de recuperación de contraseña para tu cuenta.')

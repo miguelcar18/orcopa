@@ -87,7 +87,7 @@
                     @include('layouts.breadcrum', ['titulo' => 'Nuevo curso', 'tituloModulo' => 'Cursos', 'rutaModulo' => URL::route('cursos.index'), 'tituloSubmodulo' => 'Nuevo curso', 'iconoModulo' => "Cursos"])
                     --}}
                     <!-- Blank Content -->
-                    <p>Create your content..</p>
+                    <p style="height: 250px"><br></p>
                     <!-- END Blank Content -->
                     @show
                 </div>

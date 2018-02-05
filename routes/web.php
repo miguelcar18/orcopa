@@ -12,13 +12,17 @@
 */
 
 Route::get('/', ['as' => 'principal', 'uses' => 'BackController@index']);
-//Route::resource('usuarios', 'UserController');
+Route::resource('usuarios', 'UserController');
 Auth::routes();
 Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
-//Route::get('restaurar-contrasena', ['as' => 'change_password', 'uses' =>'LoginController@changePassword']);
-//Route::post('profile/change-password', ['as' => 'postChangePassword', 'uses' => 'LoginController@postChangePassword']);
+Route::get('restaurar-contrasena', ['as' => 'change_password', 'uses' =>'LoginController@changePassword']);
+Route::post('profile/change-password', ['as' => 'postChangePassword', 'uses' => 'LoginController@postChangePassword']);
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('tutores', 'TutoresController');
 Route::resource('empresas', 'EmpresasController');
 Route::resource('pasantes', 'PasantesController');
+Route::get('/respaldar', ['as' => 'respaldar', 'uses' => 'AjustesController@respaldar']);
+Route::get('/accion-respaldar', ['as' => 'accionRespaldar', 'uses' => 'AjustesController@accionRespaldar']);
+Route::get('/importar', ['as' => 'importar', 'uses' => 'AjustesController@importar']);
+

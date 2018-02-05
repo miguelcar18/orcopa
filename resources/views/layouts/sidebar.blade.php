@@ -52,6 +52,30 @@
                         </li>
                     </ul>
                 </li>
+                <li @if(Route::getCurrentRoute()->getName() == 'usuarios.index' or  Route::getCurrentRoute()->getName() == 'usuarios.show' or Route::getCurrentRoute()->getName() == 'usuarios.edit' or Route::getCurrentRoute()->getName() == 'usuarios.create')) class="active" @endif >
+                    <a href="#" class="menu-link"><i class="glyphicon-group"></i>Usuarios</a>
+                    <ul>
+                        <li>
+                            <a href="{{ URL::route('usuarios.index') }}" @if(Route::getCurrentRoute()->getName() == 'usuarios.index' or  Route::getCurrentRoute()->getName() == 'usuarios.show' or Route::getCurrentRoute()->getName() == 'usuarios.edit')) class="active" @endif >Mostrar listado</a>
+                        </li>
+                        <li>
+                            <a href="{{ URL::route('usuarios.create') }}" @if(Route::getCurrentRoute()->getName() == 'usuarios.create')) class="active" @endif >Registrar</a>
+                        </li>
+                    </ul>
+                </li>
+                <li @if(Route::getCurrentRoute()->getName() == 'respaldar' or  Route::getCurrentRoute()->getName() == 'importar')) class="active" @endif >
+                    <a href="#" class="menu-link"><i class="glyphicon-show_big_thumbnails"></i>Base de datos</a>
+                    <ul>
+                        <li>
+                            <a href="{{ URL::route('respaldar') }}" @if(Route::getCurrentRoute()->getName() == 'respaldar')) class="active" @endif >Respaldar</a>
+                        </li>
+                        {{--
+                        <li>
+                            <a href="{{ URL::route('importar') }}" @if(Route::getCurrentRoute()->getName() == 'importar')) class="active" @endif >Importar</a>
+                        </li>
+                        --}}
+                    </ul>
+                </li>
             </ul>
             <!-- END Sidebar Navigation -->
         </div>
