@@ -29,7 +29,7 @@ class PasantesController extends Controller
      */
     public function index()
     {
-        $pasantes = Pasante::All();
+        $pasantes = \DB::select('SELECT pasantes.id, pasantes.culminacion, pasantes.cedula, pasantes.nombre, pasantes.apellido,  (SELECT TIMESTAMPDIFF(YEAR,pasantes.culminacion,CURDATE()))  AS anios, (SELECT (TIMESTAMPDIFF(MONTH,pasantes.culminacion,CURDATE())) - (TIMESTAMPDIFF(YEAR,pasantes.culminacion,CURDATE()) * 12)) AS meses, (SELECT DATEDIFF(CURDATE(),DATE_ADD(DATE_ADD(pasantes.culminacion, INTERVAL TIMESTAMPDIFF(YEAR,pasantes.culminacion,CURDATE()) YEAR), INTERVAL (TIMESTAMPDIFF(MONTH,pasantes.culminacion,CURDATE())) - (TIMESTAMPDIFF(YEAR,pasantes.culminacion,CURDATE()) * 12) MONTH))) AS dias FROM pasantes');
         return view('pasantes.index', compact('pasantes'));
     }
 

@@ -82,6 +82,12 @@
                 <div id="page-content" class="block full">
                     @section('contenido')
                     @include('layouts.breadcrumb')
+                    @if(isset($booleanPasantes) && $booleanPasantes == 1)
+                    <div class="alert alert-warning alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon-warning-sign"></i> Uno o varios pasantes tienen próxima su fecha de culminación de pasantía</h4><a href="{{ URL::route('pasantes.index') }}" class="alert-link">Click aquí</a>
+                    </div>
+                    @endif
                     {{--
                     @include('layouts.breadcrum', ['titulo' => "Cursos", 'tituloModulo' => "Cursos", 'iconoModulo' => "Cursos"])
                     @include('layouts.breadcrum', ['titulo' => 'Nuevo curso', 'tituloModulo' => 'Cursos', 'rutaModulo' => URL::route('cursos.index'), 'tituloSubmodulo' => 'Nuevo curso', 'iconoModulo' => "Cursos"])

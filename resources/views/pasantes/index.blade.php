@@ -13,18 +13,30 @@
 		<table id="example-datatable" class="table table-bordered table-striped table-hover">
 			<thead>
 				<tr>
-					<th>Nombre</th>
-					<th>Apellido</th>
+					<th>Nombre y apellido</th>
 					<th>Cédula</th>
+					<th>Estado</th>
 					<th class="text-center">Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($pasantes as $pasante)
 				<tr>
-					<td>{{ $pasante->nombre }}</td>
-					<td>{{ $pasante->apellido }}</td>
+					<td>{{ $pasante->nombre.''.$pasante->apellido }}</td>
 					<td>{{ number_format($pasante->cedula, 0, '', '.') }}</td>
+					<td>
+						@if($pasante->anios >= 0 && $pasante->meses >= 0 && $pasante->dias >= -5)
+						<span class="label label-warning" style="font-size: 100%">
+							Por culminar
+						@elseif($pasante->anios >= 0 && $pasante->meses >= 0 && $pasante->dias >= 0)
+						<span class="label label-danger" style="font-size: 100%">
+							Culminada
+						@else
+						<span class="label label-success" style="font-size: 100%">
+							Normal
+						@endif
+						</span>
+					</td>
 					<td class="text-center">
 						<div class="btn-group">
 							<a href="{{ URL::route('pasantes.show', $pasante->id) }}" data-rel="tooltip" title="Mostrar {{ $pasante->cedula }}" objeto="{{ $pasante->cedula }}" style="text-decoration:none;" data-id="{{ $pasante->id }}"> 
